@@ -1,0 +1,3 @@
+/home/jonas/Desktop/referart/Schoenbass-Pamminger-LinkedList-2022/cmake-build-debug/CMakeFiles/Schoenbass_Pamminger_LinkedList_2022.dir
+/home/jonas/Desktop/referart/Schoenbass-Pamminger-LinkedList-2022/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jonas/Desktop/referart/Schoenbass-Pamminger-LinkedList-2022/cmake-build-debug/CMakeFiles/rebuild_cache.dir
