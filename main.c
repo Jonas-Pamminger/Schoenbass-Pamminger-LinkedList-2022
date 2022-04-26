@@ -8,30 +8,26 @@ struct Node {
 
 void printList(struct Node* node)
 {
-    while (node != NULL) {
+    while (node != NULL) 
+    {
         printf(" %d ", node->data);
         node = node->next;
     }
 }
+
 void push(struct Node** head_ref, int new_data)
 {
     struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
-
     new_node->data = new_data;
-
     new_node->next = (*head_ref);
-
     (*head_ref) = new_node;
 }
 
 void append(struct Node** head_ref, int new_data)
 {
     struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
-
     struct Node *last = *head_ref;
-
     new_node->data = new_data;
-
     new_node->next = NULL;
 
     if (*head_ref == NULL)
@@ -40,22 +36,46 @@ void append(struct Node** head_ref, int new_data)
         return;
     }
     while (last->next != NULL)
-        last = last->next;
+    {
+     last = last->next;   
+    }
     last->next = new_node;
+    
     return;
 }
+
 void insertBetween(struct Node* prev_node, int new_data)
 {
-    if(prev_node != NULL) {
+    if(prev_node != NULL) 
+    {
         struct Node *new_node = (struct Node *) malloc(sizeof(struct Node));
-
         new_node->data = new_data;
-
         new_node->next = prev_node->next;
-        
         prev_node->next = new_node;
     }
 }
+
+void delete(struct Node** head, int x)
+{
+    struct Node *temp = *head, *prev;
+    if (temp != NULL && temp->data == x) 
+    {
+        *head = temp->next;
+        return;
+    }
+    while (temp != NULL && temp->data != x) 
+    {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (temp == NULL)
+    {
+        return;
+    }
+
+    prev->next = temp->next;
+}
+
 int main()
 {
     struct Node* head = NULL;
@@ -75,6 +95,9 @@ int main()
     third->data = 3;
     third->next = NULL;
 
+    printList(head);
+    printf(" \n");
+    delete(&head, 2);
     printList(head);
 
     return 0;
