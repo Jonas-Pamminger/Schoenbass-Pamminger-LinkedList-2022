@@ -44,26 +44,15 @@ void append(struct Node** head_ref, int new_data)
     return;
 }
 
-void insertAfter(struct Node* prev_node, int new_data)
+void insertBetween(struct Node* prev_node, int new_data)
 {
-    /*1. check if the given prev_node is NULL */
-    if (prev_node == NULL) {
-        printf("the given previous node cannot be NULL");
-        return;
+    if(prev_node != NULL) 
+    {
+        struct Node *new_node = (struct Node *) malloc(sizeof(struct Node));
+        new_node->data = new_data;
+        new_node->next = prev_node->next;
+        prev_node->next = new_node;
     }
-
-    /* 2. allocate new node */
-    struct Node* new_node
-        = (struct Node*)malloc(sizeof(struct Node));
-
-    /* 3. put in the data */
-    new_node->data = new_data;
-
-    /* 4. Make next of new node as next of prev_node */
-    new_node->next = prev_node->next;
-
-    /* 5. move the next of prev_node as new_node */
-    prev_node->next = new_node;
 }
 
 void delete(struct Node** head, int x)
@@ -87,6 +76,37 @@ void delete(struct Node** head, int x)
     prev->next = temp->next;
 }
 
+void insertStart(struct Node** head, int data)
+{
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+
+    newNode->data = data;
+    newNode->next = *head;
+    *head = newNode;
+}
+
+void insertAfter(struct Node* prev_node, int new_data)
+{
+    /*1. check if the given prev_node is NULL */
+    if (prev_node == NULL) {
+        printf("the given previous node cannot be NULL");
+        return;
+    }
+
+    /* 2. allocate new node */
+    struct Node* new_node
+        = (struct Node*)malloc(sizeof(struct Node));
+
+    /* 3. put in the data */
+    new_node->data = new_data;
+
+    /* 4. Make next of new node as next of prev_node */
+    new_node->next = prev_node->next;
+
+    /* 5. move the next of prev_node as new_node */
+    prev_node->next = new_node;
+}
+
 int main()
 {
     struct Node* head = NULL;
@@ -94,13 +114,13 @@ int main()
     struct Node* third = NULL;
     struct Node* fourth = NULL;
     struct Node* fifth = NULL;
-
+    
     head = (struct Node*)malloc(sizeof(struct Node));
     second = (struct Node*)malloc(sizeof(struct Node));
     third = (struct Node*)malloc(sizeof(struct Node));
     fourth = (struct Node*)malloc(sizeof(struct Node));
     fifth = (struct Node*)malloc(sizeof(struct Node));
-
+    
     head->data = 1;
     head->next = second;
 
@@ -109,19 +129,24 @@ int main()
 
     third->data = 3;
     third->next = fourth;
-
+    
     fourth->data = 4;
     fourth->next = fifth;
 
     fifth->data = 5;
     fifth->next = NULL;
 
+    printf("First:\n");
     printList(head);
-    printf(" \n");
+    printf("\nDelete: 2\n");
     delete(&head, 2);
     printList(head);
-    printf(" \n");
+    printf("\nInsert-First: 7\n");
+    insertStart(&head, 7);
+    printList(head);
+    printf("\nInsert: 8\n");
     insertAfter(fourth, 8);
     printList(head);
+
     return 0;
 }
