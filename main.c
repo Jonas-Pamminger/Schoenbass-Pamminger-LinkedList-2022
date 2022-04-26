@@ -1,5 +1,3 @@
-// A simple C program to introduce
-// a linked list
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,6 +6,56 @@ struct Node {
     struct Node* next;
 };
 
+void printList(struct Node* node)
+{
+    while (node != NULL) {
+        printf(" %d ", node->data);
+        node = node->next;
+    }
+}
+void push(struct Node** head_ref, int new_data)
+{
+    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+
+    new_node->data = new_data;
+
+    new_node->next = (*head_ref);
+
+    (*head_ref) = new_node;
+}
+
+void append(struct Node** head_ref, int new_data)
+{
+    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+
+    struct Node *last = *head_ref;
+
+    new_node->data = new_data;
+
+    new_node->next = NULL;
+
+    if (*head_ref == NULL)
+    {
+        *head_ref = new_node;
+        return;
+    }
+    while (last->next != NULL)
+        last = last->next;
+    last->next = new_node;
+    return;
+}
+void insertBetween(struct Node* prev_node, int new_data)
+{
+    if(prev_node != NULL) {
+        struct Node *new_node = (struct Node *) malloc(sizeof(struct Node));
+
+        new_node->data = new_data;
+
+        new_node->next = prev_node->next;
+        
+        prev_node->next = new_node;
+    }
+}
 int main()
 {
     struct Node* head = NULL;
@@ -18,49 +66,16 @@ int main()
     second = (struct Node*)malloc(sizeof(struct Node));
     third = (struct Node*)malloc(sizeof(struct Node));
 
+    head->data = 1;
+    head->next = second;
 
-
-    head->data = 1; // assign data in first node
-    head->next = second; // Link first node with
-    
     second->data = 2;
-
-    // Link second node with the third node
     second->next = third;
 
-    /* data has been assigned to the data part of the second
-    block (block pointed by second). And next
-    pointer of the second block points to the third
-    block. So all three blocks are linked.
-
-    head		 second		 third
-        |			 |			 |
-        |			 |			 |
-    +---+---+	 +---+---+	 +----+----+
-    | 1 | o----->| 2 | o-----> | # | # |
-    +---+---+	 +---+---+	 +----+----+	 */
-
-    third->data = 3; // assign data to third node
+    third->data = 3;
     third->next = NULL;
 
-    /* data has been assigned to data part of third
-    block (block pointed by third). And next pointer
-    of the third block is made NULL to indicate
-    that the linked list is terminated here.
-
-    We have the linked list ready.
-
-        head
-            |
-            |
-        +---+---+	 +---+---+	 +----+------+
-        | 1 | o----->| 2 | o-----> | 3 | NULL |
-        +---+---+	 +---+---+	 +----+------+
-
-
-    Note that only head is sufficient to represent
-    the whole list. We can traverse the complete
-    list by following next pointers. */
+    printList(head);
 
     return 0;
 }
